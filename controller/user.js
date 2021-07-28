@@ -9,9 +9,7 @@ exports.login = async (req, res, next) => {
     // 生成token
     const token = await jwt.sign({
       userId : user._id
-    }, jwtSecret, {
-      expiresIn: 60
-    })
+    }, jwtSecret)
     res.status(200).json({
       ...user,
       token

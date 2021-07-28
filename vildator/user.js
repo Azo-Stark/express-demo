@@ -34,7 +34,7 @@ exports.login = [
     ]),
     validate([
         body('user.email').custom( async (email, {req}) => {
-            const user = await User.findOne({email}).select('password')
+            const user = await User.findOne({email}).select('email')
             if(!user) {
                 return Promise.reject('邮箱不存在')
             }
@@ -43,7 +43,7 @@ exports.login = [
     ]),
     validate([
         body('user.password').custom(async (password, {req}) => {
-           if(md5(password) !== req.user.password) {
+           if( password !== req.body.user.password) {
                return Promise.reject('密码错误')
            }
         })
